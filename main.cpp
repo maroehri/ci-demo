@@ -7,7 +7,7 @@ int main() {
     WeatherAnalyzer weather(weatherService); // Inject dependency into WeatherAnalyzer
     WeatherPresenter presenter;
 
-    // Esslingen University - Coordinates
+    // Esslingen University
     double latEsslingen = 48.738;
     double lonEsslingen = 9.311;
 
