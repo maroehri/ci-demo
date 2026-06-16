@@ -7,16 +7,16 @@ using json = nlohmann::json;
 // coordinates
 WeatherData OpenMeteoWeatherService::getWeatherData(double latitude, double longitude) const {
     httplib::Client client("http://api.open-meteo.com");
-    const std::string path = "/v1/forecast?latitude=" + std::to_string(latitude)
-                             + "&longitude=" + std::to_string(longitude) + "&current_weather=true";
+    std::string path = "/v1/forecast?latitude=" + std::to_string(latitude)
+                       + "&longitude=" + std::to_string(longitude) + "&current_weather=true";
 
     auto res = client.Get(path.c_str());
 
     if (res && res->status == 200) {
         json response = json::parse(res->body, nullptr, false);
         if (!response.is_discarded() && response.contains("current_weather")) {
-            const double temperature = response["current_weather"]["temperature"].get<double>();
-            const double windSpeed = response["current_weather"]["windspeed"].get<double>();
+            double temperature = response["current_weather"]["temperature"].get<double>();
+            double windSpeed = response["current_weather"]["windspeed"].get<double>();
             return {temperature, windSpeed, true};
         }
     }
